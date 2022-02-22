@@ -1,0 +1,580 @@
+---
+title: "Experiment 1"
+author: "Taehoon Kim, Do-Joon Yi"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: 
+      collapse: false
+      smooth_scroll: false
+    number_sections: true
+    theme: cosmo 
+    highlight: haddock
+    code_folding: hide
+subtitle: Nonlinear effect of prediction error on recognition-based episodic memory updating
+mainfont: Noto Sans CJK KR
+---
+
+```{r wd, echo=FALSE}
+setwd('~/Documents/GitHub/MemUpdatingPE/')
+```
+
+```{css, echo=FALSE}
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+```
+
+```{r setup, message=FALSE}
+set.seed(12345) 
+if (!require("magick", quietly = TRUE)) install.packages("magick")
+
+pacman::p_load(tidyverse, knitr, 
+               afex, emmeans, 
+               psych, ggplot2, papaja, cowplot)
+pacman::p_load_gh("thomasp85/patchwork", "RLesur/klippy")
+
+options(dplyr.summarise.inform=FALSE)
+options(knitr.kable.NA = '')
+set_sum_contrasts() # see Singmann & Kellen (2020)
+
+klippy::klippy()
+```
+
+
+# Design & Procedure
+
+```{r procedure}
+f1 <- ggdraw() + draw_image("fig/F1A.png", scale = .9)
+f2 <- ggdraw() + draw_image("fig/F1B.png", scale = .9)
+plot_grid(f1, f2, labels = c('A', 'B'), nrow = 2, label_size = 20)
+```
+
+
+<br><br>
+
+****
+
+<br><br>
+
+
+# Day 1 & 2
+첫째 날과 둘째 날에 학습한 List 1과 List 2의 물체-색상 연합학습 강도를 확인할 수 있다.
+
+```{r, collapse=TRUE}
+# Data
+g1 <- read.csv("data/MemUdt_PE_d1t2_p.csv", header = T)
+g2 <- read.csv("data/MemUdt_PE_d2t5_p.csv", header = T) 
+g1$List <- 'list1'; 
+g2$List <- 'list2'; 
+p1 <- rbind(g1, g2)
+
+p1$SN <- factor(p1$SN)
+p1$Group <- factor(p1$Group, levels = c(1,2), labels=c("Experimental", "Control"))
+p1$List <- factor(p1$List)
+headTail(p1)
+
+table(p1$Group, p1$SN)
+
+# descriptive
+p1 %>% group_by(Group, SN, List, Block) %>% 
+  summarise(Accuracy = mean(Corr)*100) %>% 
+  ungroup() %>% 
+  group_by(Group, List, Block) %>% 
+  summarise(Accuracy = mean(Accuracy)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'Block', values_from = 'Accuracy') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x List x Black")
+
+p1 %>% group_by(Group, SN, List, Block) %>% 
+  summarise(Accuracy = mean(Corr)*100) %>% 
+  ungroup() %>% 
+  group_by(List, Block) %>% 
+  summarise(Accuracy = mean(Accuracy)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'Block', values_from = 'Accuracy') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: List x Black")
+```
+
+```{r, warning=FALSE}
+# 3way ANOVA
+p1.aov <- p1 %>% group_by(Group, SN, List, Block) %>% 
+  summarise(Accuracy = mean(Corr)*100) %>% 
+  ungroup() %>% 
+  aov_ez(id = 'SN', dv = 'Accuracy', 
+         between = 'Group', within = c('List', 'Block'), 
+         anova_table = list(es = 'pes'))
+p1.aov
+```
+
+List 1보다 List 2의 정확도가 항상 높았지만, 그 차이는 후반부로 갈수록 감소한다.
+
+```{r}
+p1.emm <- p1.aov %>% 
+  emmeans(pairwise ~ List | Block, type = "response") %>% 
+  summary(by = NULL, adjust = "bonferroni")
+p1.emm[[2]]
+```
+
+Bonferroni 보정 후, List 1과 2의 차이는 여전히 유의미하다.
+
+
+
+<br><br>
+
+****
+
+<br><br>
+
+
+
+# Day 3
+
+```{r, collapse=TRUE}
+# Data
+p2 <- read.csv("data/MemUdt_PE_d3t6_p.csv", header = T) 
+
+p2$SN <- factor(p2$SN)
+p2$Group <- factor(p2$Group, levels=c(1,2),  labels=c("Experimental","Control"))
+p2$List <- factor(p2$List, levels=c(1,2,3),  labels=c("list1","list2","list3"))
+p2$Cue <- factor(p2$Cue, levels=c(1,2,3,4,0), labels=c("cc1","cc2","cc3","cc4","lure"))
+# p2$PE <- factor(p2$PE, levels=c(1,2,3,4,0), labels=c("pe0","pe30","pe70","pe100","lure"))
+p2$CueName = factor(p2$CueName, labels=c("c0","c1","c2","c3","c4"))
+p2$Resp <- factor(p2$Resp, levels=c(1,2,3), labels=c("list1", "list2", "list3"))
+
+p2$PE[p2$PE==0] <- NA
+p2$PE[p2$PE==1] <- 0
+p2$PE[p2$PE==2] <- 30
+p2$PE[p2$PE==3] <- 70
+p2$PE[p2$PE==4] <- 100
+str(p2)
+```
+
+마지막 날(Day 3)에 실시한 출처기억 검사 결과를 정리하였다.
+
+
+## Descriptive Stats
+
+### List 1 & List 2
+
+```{r, collapse=TRUE}
+# recognition: except List 3
+p2old <- p2 %>% 
+  filter(List == "list1" | List == "list2") %>% 
+  select(SN, Group, List, Cue, PE, Resp, Corr, Conf) %>% 
+  droplevels()
+
+unique(p2old$List)
+unique(p2old$Resp)
+unique(p2old$Corr)
+
+p2old$Miss <- as.numeric(p2old$Corr==0) # recognition: miss rate
+p2old$Correct <- as.numeric(p2old$Corr==1) # correct source memory
+p2old$L1toL2 <- as.numeric(p2old$Corr==2) # source confusion
+p2old$L2toL1 <- as.numeric(p2old$Corr==3) # source confusion + intrusion
+
+glimpse(p2old)
+
+p2oldslong <- p2old %>% 
+  group_by(Group, SN, List) %>% 
+  summarise(Correct = mean(Correct)*100,
+            Miss = mean(Miss)*100,
+            L1toL2 = mean(L1toL2)*100,
+            L2toL1 = mean(L2toL1)*100) %>% 
+  ungroup() %>%
+  mutate(AttrError = L1toL2 + L2toL1) %>% 
+  select(Group, SN, List, Correct, Miss, AttrError)
+
+p2oldslong %>% group_by(Group, List) %>% 
+  summarise(Correct = mean(Correct),
+            Miss = mean(Miss),
+            AttrError = mean(AttrError)) %>% 
+  ungroup() %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x List")
+```
+
+###  List 3
+
+```{r, collapse=TRUE}
+p2new <- p2 %>% 
+  filter(List == "list3") %>% 
+  select(SN, Group, Resp, Corr, Conf) %>%
+  droplevels()
+head(p2new)
+unique(p2new$Resp)
+unique(p2new$Corr)
+
+p2new %>% group_by(Group, SN) %>% 
+  summarise(FA = 100 - mean(Corr)*100) %>% 
+  ungroup() %>% 
+  group_by(Group) %>% 
+  summarise(FA = mean(FA)) %>% 
+  ungroup() %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group")
+```
+
+
+## Miss
+
+```{r}
+p2oldslong %>% aov_ez(id = 'SN', dv = 'Miss',
+                      between = 'Group', within = 'List',
+                      anova_table = list(es = 'pes'))
+```
+
+List 1과 List 2의 항목을 "본 적 없다"고 답하는 비율은 매우 낮았고, 조건간 차이도 유의미하지 않았다.
+
+
+## False alarm
+
+```{r}
+p2new %>% group_by(Group, SN) %>% 
+  summarise(FA = 100 - mean(Corr)*100) %>% 
+  ungroup() %>% 
+  aov_ez(id = 'SN', dv = 'FA', between = 'Group',
+         anova_table = list(es = 'pes'))
+```
+
+List 3의 항목을 "봤다"고 답한 비율도 낮았다. 집단 차이는 유의미하지 않았다.
+
+
+## Source accuracy
+
+```{r}
+p2oldslong %>% aov_ez(id = 'SN', dv = 'Correct',
+                      between = 'Group', within = 'List',
+                      anova_table = list(es = 'pes'))
+```
+
+List 1의 정반응 비율이 List 2보다 높았다.
+
+
+## Source misattribution
+
+```{r}
+p2AttrErr.aov <- p2oldslong %>% 
+  aov_ez(id = 'SN', dv = 'AttrError', 
+         between = 'Group', within = 'List',
+         anova_table = list(es = 'pes'))
+p2AttrErr.aov 
+
+# custom contrast
+p2AttrErr.emm <- p2AttrErr.aov %>% emmeans(~ List*Group)
+con <- emmeans:::trt.vs.ctrl.emmc(1:4)
+ExpL2L1 <- c(-1, 1,0,0)
+ConL2L1 <- c(0,0,-1, 1)
+L2ExpCon <- c(0,1,0,-1)
+con <- data.frame(ExpL2L1, ConL2L1, L2ExpCon)
+contrast(p2AttrErr.emm, con, adjust = "bonferroni")
+```
+
+ANOVA에서 List 2를 List 1으로 오기억하는 경우가 반대보다 높았으나, 집단 차이는 유의미하지 않았다. 그러나 사후비교에서 실험집단의 경우에만 List 2 오귀인이 List 1 오귀인보다 높았다(비대칭적 오귀인 분포).
+
+
+<br><br><br>
+
+
+## Prediction error effects
+
+```{r, collapse=TRUE}
+p2PEslong <- p2old %>% 
+  filter(List == 'list2') %>% 
+  group_by(Group, SN, PE) %>% 
+  droplevels() %>%
+  summarise(L2toL1 = mean(L2toL1)) %>% 
+  ungroup()
+
+str(p2PEslong)
+```
+
+```{r}
+p2PEslong %>% 
+  group_by(Group, PE) %>% 
+  summarise(L2toL1 = mean(L2toL1)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'PE', values_from = 'L2toL1') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x PE")
+
+p2PE.aov <- p2PEslong %>% 
+  aov_ez(id = 'SN', dv = 'L2toL1',
+         between = 'Group', within = 'PE',
+         anova_table = list(es = 'pes'))
+p2PE.aov
+```
+
+집단과 예측오류 수준의 상호작용이 유의미하였다.
+
+```{r}
+# custom contrast
+p2PE.emm <- p2PE.aov %>% emmeans(~ Group*PE)
+con <- emmeans:::trt.vs.ctrl.emmc(1:8)
+Exp0to30 <- c(-1,0,1,0,0,0,0,0)
+Exp0to70 <- c(-1,0,0,0,1,0,0,0)
+Exp0to100 <- c(-1,0,0,0,0,0,1,0)
+Exp100to30 <- c(0,0,1,0,0,0,-1,0)
+Exp100to70 <- c(0,0,0,0,1,0,-1,0)
+Con0to30 <- c(0,-1,0,1,0,0,0,0)
+Con0to70 <- c(0,-1,0,0,0,1,0,0)
+Con0to100 <- c(0,-1,0,0,0,0,0,1)
+Con100to30 <- c(0,0,0,1,0,0,0,-1)
+Con100to70 <- c(0,0,0,0,0,1,0,-1)
+con <- data.frame(Exp0to30, Exp0to70, Exp0to100, Exp100to30, Exp100to70,
+                  Con0to30, Con0to70, Con0to100, Con100to30, Con100to70)
+contrast(p2PE.emm, con, adjust = "Bonferroni")
+```  
+
+실험집단에서만 PE100의 침범반응이 PE30과 PE70보다 적었다. 
+
+```{r}
+# https://cran.r-project.org/web/packages/emmeans/vignettes/interactions.html
+emm.t <- p2PE.aov %>% emmeans(pairwise ~ PE | Group)
+emm.t[[1]] %>% contrast("poly") %>% 
+	summary(by = NULL, adjust = "Bonferroni")
+
+emm.t[[1]] %>%  contrast(interaction = c("poly", "consec"), 
+												 by = NULL, adjust = "Bonferroni")
+```
+
+이차함수 추세(quadratic trend)에서 PE와 집단의 상호작용이 유의미하였다(가정 중요한 결과).
+
+
+<br><br><br>
+
+
+## Source confidence
+
+```{r}
+p2old %>% filter(Corr == 2 | Corr == 3) %>% 
+  droplevels() %>%
+  group_by(Group, SN, List) %>% 
+  summarise(Confid = mean(Conf)) %>% 
+  ungroup() %>% 
+  group_by(Group, List) %>% 
+  summarise(Confid = mean(Confid)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'List', values_from = 'Confid') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x List")
+
+p2old %>% filter(Corr == 2 | Corr == 3) %>% 
+  droplevels() %>%
+  group_by(Group, SN, List) %>% 
+  summarise(Confid = mean(Conf)) %>% 
+  ungroup() %>% 
+  aov_ez(id = 'SN', dv = 'Confid',
+         between = 'Group', within = 'List',
+         anova_table = list(es = 'pes'))
+```
+
+List 1보다 List 2에 대한 확신도가 더 높았다.
+
+
+```{r}
+# List 2 misattr X PE: Confidence
+p2old %>% filter(List == 'list2') %>% 
+  droplevels() %>%
+  group_by(Group, SN, PE) %>% 
+  summarise(Conf = mean(Conf)) %>% 
+  ungroup() %>% 
+  group_by(Group, PE) %>% 
+  summarise(Conf = mean(Conf)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'PE', values_from = 'Conf') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x PE")
+
+p2old %>% filter(List == 'list2') %>% 
+  droplevels() %>%
+  group_by(Group, SN, PE) %>% 
+  summarise(Conf = mean(Conf)) %>% 
+  ungroup() %>% 
+  aov_ez(id = 'SN', dv = 'Conf',
+         between = 'Group', within = 'PE',
+         anova_table = list(es = 'pes'))
+```
+
+
+
+<br><br><br>
+
+
+
+## Associative Memory
+
+
+### Accuracy
+
+```{r}
+p2 %>% filter(List != "list3", Resp != "list3") %>% 
+  group_by(Group, SN, List) %>% 
+  summarise(Accuracy = mean(aCorr)*100) %>% 
+  ungroup() %>% 
+  group_by(Group, List) %>% 
+  summarise(Accuracy = mean(Accuracy)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'List', values_from = 'Accuracy') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x List")
+
+p2 %>% filter(List != "list3", Resp != "list3") %>% 
+  group_by(Group, SN, List) %>% 
+  summarise(Accuracy = mean(aCorr)*100) %>% 
+  ungroup() %>% 
+  aov_ez(id = 'SN', dv = 'Accuracy',
+         between = 'Group', within = 'List',
+         anova_table = list(es = 'pes'))
+```
+
+
+### Confidence 
+
+```{r}
+p2 %>% filter(List != "list3", Resp != "list3") %>% 
+  group_by(Group, SN, List) %>% 
+  summarise(Confident = mean(aConf)) %>% 
+  ungroup() %>% 
+  group_by(Group, List) %>% 
+  summarise(Confident = mean(Confident)) %>% 
+  ungroup() %>% 
+  pivot_wider(names_from = 'List', values_from = 'Confident') %>% 
+  kable(digits = 4, caption = "Descriptive statistics: Group x List")
+
+p2 %>% filter(List != "list3", Resp != "list3") %>% 
+  group_by(Group, SN, List) %>% 
+  summarise(Confident = mean(aConf)) %>% 
+  ungroup() %>% 
+  aov_ez(id = 'SN', dv = 'Confident',
+         between = 'Group', within = 'List',
+         anova_table = list(es = 'pes'))
+```
+
+
+<br><br><br>
+
+
+# Plots
+
+```{r}
+p2cnt <- p2old %>% 
+  group_by(Group, SN, List, Resp) %>%
+  summarise(n = n()) %>% 
+  mutate(prop = n/sum(n)) %>% 
+  ungroup() %>% 
+  filter(Resp != 'list3') %>% 
+  droplevels()
+# print(p2cnt, n=20)
+
+tmp0 <- p2cnt %>% 
+  group_by(Group, List, Resp) %>% 
+  summarise(MN = mean(prop),
+            SD = sd(prop)) %>% 
+  ungroup()
+
+tmp1 <- p2cnt %>% 
+  filter(Group == 'Experimental') %>% 
+  droplevels() %>% 
+  papaja::wsci(id = 'SN',
+               factor = c('List', 'Resp'),
+               dv = 'prop') %>% 
+  mutate(Group = "Experimental") %>% 
+  rename("wsci" = "prop")
+
+tmp2 <- p2cnt %>% 
+  filter(Group == 'Control') %>% 
+  droplevels() %>% 
+  papaja::wsci(id = 'SN',
+               factor = c('List', 'Resp'),
+               dv = 'prop') %>% 
+  mutate(Group = "Control") %>% 
+  rename("wsci" = "prop")
+
+tmp3 <- merge(tmp1, tmp2, all = TRUE)
+
+p2cnt.g <- merge(tmp0, tmp3, by = c("Group", "List", "Resp"), all = TRUE)
+
+
+F2A <- ggplot(data=p2cnt.g, aes(x=List, y=MN, fill=Resp)) +
+  geom_bar(stat='identity', width=0.7, color="black", 
+           position=position_dodge(.8)) +
+  geom_errorbar(aes(x=List, ymin=MN-wsci, ymax=MN+wsci, group=Resp),
+                position = position_dodge(0.8), width=0.3,
+                show.legend = FALSE) +
+  facet_grid(.~Group) +
+  scale_x_discrete(labels=c("List 1","List 2")) +
+  scale_y_continuous(breaks=c(0, .2, .4, .6, .8, 1)) +
+  scale_fill_manual(values = c("#feb24c", "#91bfdb"),
+                    labels = c("Day 1", "Day 2")) +
+  labs(x = "Object List", y = "Proportion", fill='Response') +
+  coord_cartesian(ylim = c(0, 1), clip = "on") +
+  theme_bw(base_size = 18) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) 
+F2A
+
+
+tmp0 <- p2PEslong %>% 
+  group_by(Group, PE) %>% 
+  summarise(MN = mean(L2toL1)) %>% 
+  ungroup()
+
+tmp1 <- p2PEslong %>% 
+  filter(Group == 'Experimental') %>% 
+  droplevels() %>% 
+  papaja::wsci(id = 'SN',
+               factor = 'PE',
+               dv = 'L2toL1') %>% 
+  mutate(Group = "Experimental") %>% 
+  rename("wsci" = "L2toL1")
+
+tmp2 <- p2PEslong %>% 
+  filter(Group == 'Control') %>% 
+  droplevels() %>% 
+  papaja::wsci(id = 'SN',
+               factor = 'PE',
+               dv = 'L2toL1') %>% 
+  mutate(Group = "Control") %>% 
+  rename("wsci" = "L2toL1")
+
+tmp3 <- merge(tmp1, tmp2, all = TRUE)
+
+p2PEg <- merge(tmp0, tmp3, by = c("Group", "PE"), all = TRUE)
+
+
+F2B <- ggplot(data=p2PEg, aes(x=PE, y=MN, group=Group,
+                              ymin=MN-wsci, ymax=MN+wsci)) +
+  geom_line(position = position_dodge(width=10)) + 
+  geom_errorbar(position = position_dodge(10), width=5,
+                show.legend = FALSE) +
+  geom_point(aes(shape=Group, fill=Group), 
+             size=4, color='black', stroke=1,
+             position=position_dodge(width=10)) +
+  scale_x_continuous(breaks=c(0, 30, 70, 100)) +
+  scale_y_continuous(breaks=c(0, .1, .2, .3, .4, .5)) +
+  scale_shape_manual(values = c(21, 23)) +
+  scale_fill_manual(values = c("black", "white")) +
+  labs(x = "Prediction Error (%)", y = "Proportion Intrusion", fill='Group') +
+  coord_cartesian(ylim = c(0, 0.5), clip = "on") +
+  theme_bw(base_size = 18) +
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        aspect.ratio = 1) 
+F2B
+```
+
+
+
+<br><br>
+
+****
+
+<br><br>
+
+
+
+
+# Session Info
+```{r sinfo, collapse=TRUE}
+sessionInfo()
+```

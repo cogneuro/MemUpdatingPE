@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Taehoon Kim, Do-Joon Yi" />
+
+<meta name="date" content="2022-02-22" />
+
+<title>Experiment 1</title>
+
+<script src="site_libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; } /* Alert */
+code span.an { color: #008000; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #0000ff; } /* ControlFlow */
+code span.ch { color: #008080; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #008000; } /* Comment */
+code span.cv { color: #008000; } /* CommentVar */
+code span.do { color: #008000; } /* Documentation */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.im { } /* Import */
+code span.in { color: #008000; } /* Information */
+code span.kw { color: #0000ff; } /* Keyword */
+code span.op { } /* Operator */
+code span.ot { color: #ff4000; } /* Other */
+code span.pp { color: #ff4000; } /* Preprocessor */
+code span.sc { color: #008080; } /* SpecialChar */
+code span.ss { color: #008080; } /* SpecialString */
+code span.st { color: #008080; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #008080; } /* VerbatimString */
+code span.wa { color: #008000; font-weight: bold; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">MemUpdatingPE</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="MemUpdatingPE_Exp1.html">Exp 1</a>
+</li>
+<li>
+  <a href="MemUpdatingPE_Exp2.html">Exp 2</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Experiment 1</h1>
+<h3 class="subtitle">Nonlinear effect of prediction error on recognition-based episodic memory updating</h3>
+<h4 class="author">Taehoon Kim, Do-Joon Yi</h4>
+<h4 class="date">2022-02-22</h4>
+
+</div>
+
+
+<style type="text/css">
+pre code, pre, code {
+  white-space: pre !important;
+  overflow-x: scroll !important;
+  word-break: keep-all !important;
+  word-wrap: initial !important;
+}
+</style>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">12345</span>) </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;magick&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;magick&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, knitr, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>               afex, emmeans, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>               psych, ggplot2, papaja, cowplot)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load_gh</span>(<span class="st">&quot;thomasp85/patchwork&quot;</span>, <span class="st">&quot;RLesur/klippy&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">dplyr.summarise.inform=</span><span class="cn">FALSE</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.kable.NA =</span> <span class="st">&#39;&#39;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">set_sum_contrasts</span>() <span class="co"># see Singmann &amp; Kellen (2020)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>klippy<span class="sc">::</span><span class="fu">klippy</span>()</span></code></pre></div>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<div id="design-procedure" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Design &amp; Procedure</h1>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span> <span class="fu">draw_image</span>(<span class="st">&quot;fig/F1A.png&quot;</span>, <span class="at">scale =</span> .<span class="dv">9</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">ggdraw</span>() <span class="sc">+</span> <span class="fu">draw_image</span>(<span class="st">&quot;fig/F1B.png&quot;</span>, <span class="at">scale =</span> .<span class="dv">9</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_grid</span>(f1, f2, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&#39;A&#39;</span>, <span class="st">&#39;B&#39;</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">label_size =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="MemUpdatingPE_Exp1_files/figure-html/procedure-1.png" width="672" /></p>
+<p><br><br></p>
+<hr />
+<p><br><br></p>
+</div>
+<div id="day-1-2" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Day 1 &amp; 2</h1>
+<p>첫째 날과 둘째 날에 학습한 List 1과 List 2의 물체-색상 연합학습 강도를 확인할 수 있다.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/MemUdt_PE_d1t2_p.csv&quot;</span>, <span class="at">header =</span> T)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>g2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/MemUdt_PE_d2t5_p.csv&quot;</span>, <span class="at">header =</span> T) </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>g1<span class="sc">$</span>List <span class="ot">&lt;-</span> <span class="st">&#39;list1&#39;</span>; </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>g2<span class="sc">$</span>List <span class="ot">&lt;-</span> <span class="st">&#39;list2&#39;</span>; </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(g1, g2)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">$</span>SN <span class="ot">&lt;-</span> <span class="fu">factor</span>(p1<span class="sc">$</span>SN)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">$</span>Group <span class="ot">&lt;-</span> <span class="fu">factor</span>(p1<span class="sc">$</span>Group, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Experimental&quot;</span>, <span class="st">&quot;Control&quot;</span>))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">$</span>List <span class="ot">&lt;-</span> <span class="fu">factor</span>(p1<span class="sc">$</span>List)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">headTail</span>(p1)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="do">##         SN        Group Trial Block bTrial cCue IMidx      IMname    CueName</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        1 Experimental     1     1      1    4   223  man309.jpg  cue_4.jpg</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        1 Experimental     2     1      2    2    74  man106.jpg  cue_2.jpg</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        1 Experimental     3     1      3    2   151  man201.jpg  cue_2.jpg</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="do">## 4        1 Experimental     4     1      4    3   200  man276.jpg  cue_3.jpg</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="do">## ...   &lt;NA&gt;         &lt;NA&gt;   ...   ...    ...  ...   ...        &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="do">## 10237   16      Control   310     4     70    4     9  man016.jpg  cue_2.jpg</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="do">## 10238   16      Control   312     4     72    4    80  man112.jpg  cue_2.jpg</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="do">## 10239   16      Control   314     4     74    4   155  man206.jpg  cue_2.jpg</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="do">## 10240   16      Control   315     4     75    4   240  man336.jpg  cue_2.jpg</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="do">##       Resp   RT Corr  List</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="do">## 1        2 1.29    1 list1</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="do">## 2        4 1.83    0 list1</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="do">## 3        1 0.84    1 list1</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="do">## 4        2 1.46    0 list1</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="do">## ...    ...  ...  ...  &lt;NA&gt;</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="do">## 10237    4 0.71    1 list2</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="do">## 10238    4 1.77    1 list2</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="do">## 10239    4 0.91    1 list2</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="do">## 10240    4 0.84    1 list2</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(p1<span class="sc">$</span>Group, p1<span class="sc">$</span>SN)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="do">##               </span></span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="do">##                  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16</span></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="do">##   Experimental 640 640 640 640 640 640   0   0 640 640   0   0   0   0   0   0</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="do">##   Control        0   0   0   0   0   0 640 640   0   0 640 640 640 640 640 640</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co"># descriptive</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Group, SN, List, Block) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(Corr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, List, Block) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(Accuracy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;Block&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;Accuracy&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x List x Black&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x List x Black</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="left">List</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="left">list1</td>
+<td align="right">46.8750</td>
+<td align="right">83.1250</td>
+<td align="right">94.6875</td>
+<td align="right">98.7500</td>
+</tr>
+<tr class="even">
+<td align="left">Experimental</td>
+<td align="left">list2</td>
+<td align="right">62.9688</td>
+<td align="right">91.7188</td>
+<td align="right">97.6562</td>
+<td align="right">99.5312</td>
+</tr>
+<tr class="odd">
+<td align="left">Control</td>
+<td align="left">list1</td>
+<td align="right">51.8750</td>
+<td align="right">83.2812</td>
+<td align="right">93.4375</td>
+<td align="right">96.8750</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="left">list2</td>
+<td align="right">64.0625</td>
+<td align="right">88.2812</td>
+<td align="right">94.3750</td>
+<td align="right">98.7500</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Group, SN, List, Block) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(Corr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(List, Block) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(Accuracy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;Block&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;Accuracy&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: List x Black&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: List x Black</caption>
+<thead>
+<tr class="header">
+<th align="left">List</th>
+<th align="right">1</th>
+<th align="right">2</th>
+<th align="right">3</th>
+<th align="right">4</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">list1</td>
+<td align="right">49.3750</td>
+<td align="right">83.2031</td>
+<td align="right">94.0625</td>
+<td align="right">97.8125</td>
+</tr>
+<tr class="even">
+<td align="left">list2</td>
+<td align="right">63.5156</td>
+<td align="right">90.0000</td>
+<td align="right">96.0156</td>
+<td align="right">99.1406</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3way ANOVA</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>p1.aov <span class="ot">&lt;-</span> p1 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Group, SN, List, Block) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(Corr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Accuracy&#39;</span>, </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="fu">c</span>(<span class="st">&#39;List&#39;</span>, <span class="st">&#39;Block&#39;</span>), </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>p1.aov</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Accuracy
+##             Effect          df    MSE          F  pes p.value
+## 1            Group       1, 14 245.08       0.04 .003    .846
+## 2             List       1, 14  40.39  29.04 *** .675   &lt;.001
+## 3       Group:List       1, 14  40.39       0.88 .059    .364
+## 4            Block 1.25, 17.44 169.49 166.33 *** .922   &lt;.001
+## 5      Group:Block 1.25, 17.44 169.49       0.67 .046    .456
+## 6       List:Block 1.81, 25.33  33.27  13.97 *** .499   &lt;.001
+## 7 Group:List:Block 1.81, 25.33  33.27       0.52 .036    .582
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1
+## 
+## Sphericity correction method: GG</code></pre>
+<p>List 1보다 List 2의 정확도가 항상 높았지만, 그 차이는 후반부로 갈수록 감소한다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p1.emm <span class="ot">&lt;-</span> p1.aov <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">emmeans</span>(pairwise <span class="sc">~</span> List <span class="sc">|</span> Block, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summary</span>(<span class="at">by =</span> <span class="cn">NULL</span>, <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>p1.emm[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>##  contrast      Block estimate    SE df t.ratio p.value
+##  list1 - list2 X1      -14.14 2.840 14  -4.979  0.0008
+##  list1 - list2 X2       -6.80 1.939 14  -3.506  0.0140
+##  list1 - list2 X3       -1.95 0.763 14  -2.561  0.0905
+##  list1 - list2 X4       -1.33 0.408 14  -3.254  0.0230
+## 
+## Results are averaged over the levels of: Group 
+## P value adjustment: bonferroni method for 4 tests</code></pre>
+<p>Bonferroni 보정 후, List 1과 2의 차이는 여전히 유의미하다.</p>
+<p><br><br></p>
+<hr />
+<p><br><br></p>
+</div>
+<div id="day-3" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Day 3</h1>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/MemUdt_PE_d3t6_p.csv&quot;</span>, <span class="at">header =</span> T) </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>SN <span class="ot">&lt;-</span> <span class="fu">factor</span>(p2<span class="sc">$</span>SN)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>Group <span class="ot">&lt;-</span> <span class="fu">factor</span>(p2<span class="sc">$</span>Group, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),  <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;Experimental&quot;</span>,<span class="st">&quot;Control&quot;</span>))</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>List <span class="ot">&lt;-</span> <span class="fu">factor</span>(p2<span class="sc">$</span>List, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),  <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;list1&quot;</span>,<span class="st">&quot;list2&quot;</span>,<span class="st">&quot;list3&quot;</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>Cue <span class="ot">&lt;-</span> <span class="fu">factor</span>(p2<span class="sc">$</span>Cue, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">0</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;cc1&quot;</span>,<span class="st">&quot;cc2&quot;</span>,<span class="st">&quot;cc3&quot;</span>,<span class="st">&quot;cc4&quot;</span>,<span class="st">&quot;lure&quot;</span>))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># p2$PE &lt;- factor(p2$PE, levels=c(1,2,3,4,0), labels=c(&quot;pe0&quot;,&quot;pe30&quot;,&quot;pe70&quot;,&quot;pe100&quot;,&quot;lure&quot;))</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>CueName <span class="ot">=</span> <span class="fu">factor</span>(p2<span class="sc">$</span>CueName, <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;c0&quot;</span>,<span class="st">&quot;c1&quot;</span>,<span class="st">&quot;c2&quot;</span>,<span class="st">&quot;c3&quot;</span>,<span class="st">&quot;c4&quot;</span>))</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>Resp <span class="ot">&lt;-</span> <span class="fu">factor</span>(p2<span class="sc">$</span>Resp, <span class="at">levels=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;list1&quot;</span>, <span class="st">&quot;list2&quot;</span>, <span class="st">&quot;list3&quot;</span>))</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>PE[p2<span class="sc">$</span>PE<span class="sc">==</span><span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>PE[p2<span class="sc">$</span>PE<span class="sc">==</span><span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>PE[p2<span class="sc">$</span>PE<span class="sc">==</span><span class="dv">2</span>] <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>PE[p2<span class="sc">$</span>PE<span class="sc">==</span><span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>p2<span class="sc">$</span>PE[p2<span class="sc">$</span>PE<span class="sc">==</span><span class="dv">4</span>] <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(p2)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="do">## &#39;data.frame&#39;:    3840 obs. of  19 variables:</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ SN     : Factor w/ 16 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Group  : Factor w/ 2 levels &quot;Experimental&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Trial  : int  1 2 3 4 5 6 7 8 9 10 ...</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ List   : Factor w/ 3 levels &quot;list1&quot;,&quot;list2&quot;,..: 2 3 2 3 1 2 1 2 3 3 ...</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Cue    : Factor w/ 5 levels &quot;cc1&quot;,&quot;cc2&quot;,&quot;cc3&quot;,..: 4 5 1 5 2 3 3 2 5 5 ...</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ PE     : num  100 NA 0 NA 70 30 30 70 NA NA ...</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ IMidx  : int  226 195 206 144 81 4 125 193 14 1 ...</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ IMname : chr  &quot; man312.jpg&quot; &quot; man267.jpg&quot; &quot; man283.jpg&quot; &quot; man190.jpg&quot; ...</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ CueName: Factor w/ 5 levels &quot;c0&quot;,&quot;c1&quot;,&quot;c2&quot;,..: 5 1 2 1 3 4 4 3 1 1 ...</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Resp   : Factor w/ 3 levels &quot;list1&quot;,&quot;list2&quot;,..: 2 3 2 3 1 2 2 1 3 3 ...</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ RT     : num  12.93 2.34 11.8 1.99 8.86 ...</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Corr   : int  1 1 1 1 1 1 2 3 1 1 ...</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Conf   : int  2 4 2 4 3 3 3 3 4 4 ...</span></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ cRT    : num  1.78 1.11 2.49 1.14 2.01 ...</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ aResp  : int  2 7 3 7 1 4 4 1 7 7 ...</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ aRT    : num  1.38 0 2.02 0 1.44 ...</span></span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ aCorr  : int  1 7 1 7 1 1 1 1 7 7 ...</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ aConf  : int  4 7 3 7 4 4 4 3 7 7 ...</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ aCRT   : num  2.69 0 2.54 0 1.89 ...</span></span></code></pre></div>
+<p>마지막 날(Day 3)에 실시한 출처기억 검사 결과를 정리하였다.</p>
+<div id="descriptive-stats" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Descriptive Stats</h2>
+<div id="list-1-list-2" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> List 1 &amp; List 2</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># recognition: except List 3</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p2old <span class="ot">&lt;-</span> p2 <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(List <span class="sc">==</span> <span class="st">&quot;list1&quot;</span> <span class="sc">|</span> List <span class="sc">==</span> <span class="st">&quot;list2&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SN, Group, List, Cue, PE, Resp, Corr, Conf) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(p2old<span class="sc">$</span>List)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] list2 list1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: list1 list2</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(p2old<span class="sc">$</span>Resp)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] list2 list1 list3</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: list1 list2 list3</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(p2old<span class="sc">$</span>Corr)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 2 3 0</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>p2old<span class="sc">$</span>Miss <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(p2old<span class="sc">$</span>Corr<span class="sc">==</span><span class="dv">0</span>) <span class="co"># recognition: miss rate</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>p2old<span class="sc">$</span>Correct <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(p2old<span class="sc">$</span>Corr<span class="sc">==</span><span class="dv">1</span>) <span class="co"># correct source memory</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>p2old<span class="sc">$</span>L1toL2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(p2old<span class="sc">$</span>Corr<span class="sc">==</span><span class="dv">2</span>) <span class="co"># source confusion</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>p2old<span class="sc">$</span>L2toL1 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(p2old<span class="sc">$</span>Corr<span class="sc">==</span><span class="dv">3</span>) <span class="co"># source confusion + intrusion</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(p2old)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="do">## Rows: 2,560</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Columns: 12</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="do">## $ SN      &lt;fct&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Group   &lt;fct&gt; Experimental, Experimental, Experimental, Experimental, Experi…</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="do">## $ List    &lt;fct&gt; list2, list2, list1, list2, list1, list2, list2, list1, list1,…</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Cue     &lt;fct&gt; cc4, cc1, cc2, cc3, cc3, cc2, cc3, cc4, cc3, cc2, cc3, cc3, cc…</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a><span class="do">## $ PE      &lt;dbl&gt; 100, 0, 70, 30, 30, 70, 30, 100, 30, 70, 30, 30, 100, 30, 70, …</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Resp    &lt;fct&gt; list2, list2, list1, list2, list2, list1, list2, list1, list2,…</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Corr    &lt;int&gt; 1, 1, 1, 1, 2, 3, 1, 1, 2, 3, 0, 2, 1, 1, 1, 1, 2, 1, 2, 1, 1,…</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Conf    &lt;int&gt; 2, 2, 3, 3, 3, 3, 2, 2, 4, 4, 1, 3, 2, 4, 3, 3, 4, 3, 3, 2, 4,…</span></span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Miss    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</span></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="do">## $ Correct &lt;dbl&gt; 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1,…</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a><span class="do">## $ L1toL2  &lt;dbl&gt; 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0,…</span></span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="do">## $ L2toL1  &lt;dbl&gt; 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</span></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a>p2oldslong <span class="ot">&lt;-</span> p2old <span class="sc">%&gt;%</span> </span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Correct =</span> <span class="fu">mean</span>(Correct)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>            <span class="at">Miss =</span> <span class="fu">mean</span>(Miss)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb10-41"><a href="#cb10-41" aria-hidden="true" tabindex="-1"></a>            <span class="at">L1toL2 =</span> <span class="fu">mean</span>(L1toL2)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb10-42"><a href="#cb10-42" aria-hidden="true" tabindex="-1"></a>            <span class="at">L2toL1 =</span> <span class="fu">mean</span>(L2toL1)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-43"><a href="#cb10-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">AttrError =</span> L1toL2 <span class="sc">+</span> L2toL1) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Group, SN, List, Correct, Miss, AttrError)</span>
+<span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-47"><a href="#cb10-47" aria-hidden="true" tabindex="-1"></a>p2oldslong <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Group, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-48"><a href="#cb10-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Correct =</span> <span class="fu">mean</span>(Correct),</span>
+<span id="cb10-49"><a href="#cb10-49" aria-hidden="true" tabindex="-1"></a>            <span class="at">Miss =</span> <span class="fu">mean</span>(Miss),</span>
+<span id="cb10-50"><a href="#cb10-50" aria-hidden="true" tabindex="-1"></a>            <span class="at">AttrError =</span> <span class="fu">mean</span>(AttrError)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-51"><a href="#cb10-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-52"><a href="#cb10-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x List&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x List</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="left">List</th>
+<th align="right">Correct</th>
+<th align="right">Miss</th>
+<th align="right">AttrError</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="left">list1</td>
+<td align="right">78.4375</td>
+<td align="right">2.9688</td>
+<td align="right">18.5938</td>
+</tr>
+<tr class="even">
+<td align="left">Experimental</td>
+<td align="left">list2</td>
+<td align="right">66.0938</td>
+<td align="right">2.3438</td>
+<td align="right">31.5625</td>
+</tr>
+<tr class="odd">
+<td align="left">Control</td>
+<td align="left">list1</td>
+<td align="right">78.2812</td>
+<td align="right">2.9688</td>
+<td align="right">18.7500</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="left">list2</td>
+<td align="right">74.2188</td>
+<td align="right">2.8125</td>
+<td align="right">22.9688</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="list-3" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> List 3</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p2new <span class="ot">&lt;-</span> p2 <span class="sc">%&gt;%</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(List <span class="sc">==</span> <span class="st">&quot;list3&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SN, Group, Resp, Corr, Conf) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(p2new)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">##   SN        Group  Resp Corr Conf</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="do">## 1  1 Experimental list3    1    4</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 2  1 Experimental list3    1    4</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="do">## 3  1 Experimental list3    1    4</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 4  1 Experimental list3    1    4</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="do">## 5  1 Experimental list3    1    3</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="do">## 6  1 Experimental list3    1    4</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(p2new<span class="sc">$</span>Resp)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] list3 list2 list1</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Levels: list1 list2 list3</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(p2new<span class="sc">$</span>Corr)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 1 0</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>p2new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Group, SN) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">FA =</span> <span class="dv">100</span> <span class="sc">-</span> <span class="fu">mean</span>(Corr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">FA =</span> <span class="fu">mean</span>(FA)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="right">FA</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="right">3.1250</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="right">1.7188</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="miss" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Miss</h2>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>p2oldslong <span class="sc">%&gt;%</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Miss&#39;</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;List&#39;</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Miss
+##       Effect    df  MSE    F  pes p.value
+## 1      Group 1, 14 8.45 0.05 .004    .823
+## 2       List 1, 14 2.50 0.49 .034    .496
+## 3 Group:List 1, 14 2.50 0.18 .012    .682
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>List 1과 List 2의 항목을 “본 적 없다”고 답하는 비율은 매우 낮았고, 조건간 차이도 유의미하지 않았다.</p>
+</div>
+<div id="false-alarm" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> False alarm</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>p2new <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Group, SN) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">FA =</span> <span class="dv">100</span> <span class="sc">-</span> <span class="fu">mean</span>(Corr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;FA&#39;</span>, <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: FA
+##   Effect    df   MSE    F  pes p.value
+## 1  Group 1, 14 17.62 0.45 .031    .514
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>List 3의 항목을 “봤다”고 답한 비율도 낮았다. 집단 차이는 유의미하지 않았다.</p>
+</div>
+<div id="source-accuracy" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Source accuracy</h2>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>p2oldslong <span class="sc">%&gt;%</span> <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Correct&#39;</span>,</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>                      <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;List&#39;</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>                      <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Correct
+##       Effect    df    MSE        F  pes p.value
+## 1      Group 1, 14 102.56     1.24 .081    .285
+## 2       List 1, 14  40.31 13.35 ** .488    .003
+## 3 Group:List 1, 14  40.31   3.40 + .196    .086
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>List 1의 정반응 비율이 List 2보다 높았다.</p>
+</div>
+<div id="source-misattribution" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Source misattribution</h2>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>p2AttrErr.aov <span class="ot">&lt;-</span> p2oldslong <span class="sc">%&gt;%</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;AttrError&#39;</span>, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;List&#39;</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>p2AttrErr.aov </span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: AttrError
+##       Effect    df   MSE        F  pes p.value
+## 1      Group 1, 14 75.04     1.90 .119    .190
+## 2       List 1, 14 37.71 15.67 ** .528    .001
+## 3 Group:List 1, 14 37.71   4.06 + .225    .064
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># custom contrast</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>p2AttrErr.emm <span class="ot">&lt;-</span> p2AttrErr.aov <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="sc">~</span> List<span class="sc">*</span>Group)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> emmeans<span class="sc">:::</span><span class="fu">trt.vs.ctrl.emmc</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>ExpL2L1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>ConL2L1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>L2ExpCon <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ExpL2L1, ConL2L1, L2ExpCon)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(p2AttrErr.emm, con, <span class="at">adjust =</span> <span class="st">&quot;bonferroni&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast estimate   SE df t.ratio p.value
+##  ExpL2L1     12.97 3.07 14   4.224  0.0026
+##  ConL2L1      4.22 3.07 14   1.374  0.5731
+##  L2ExpCon     8.59 4.08 14   2.105  0.1615
+## 
+## P value adjustment: bonferroni method for 3 tests</code></pre>
+<p>ANOVA에서 List 2를 List 1으로 오기억하는 경우가 반대보다 높았으나, 집단 차이는 유의미하지 않았다. 그러나 사후비교에서 실험집단의 경우에만 List 2 오귀인이 List 1 오귀인보다 높았다(비대칭적 오귀인 분포).</p>
+<p><br><br><br></p>
+</div>
+<div id="prediction-error-effects" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Prediction error effects</h2>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p2PEslong <span class="ot">&lt;-</span> p2old <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(List <span class="sc">==</span> <span class="st">&#39;list2&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, PE) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">L2toL1 =</span> <span class="fu">mean</span>(L2toL1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(p2PEslong)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="do">## tibble [64 × 4] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ Group : Factor w/ 2 levels &quot;Experimental&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ SN    : Factor w/ 16 levels &quot;1&quot;,&quot;2&quot;,&quot;3&quot;,&quot;4&quot;,..: 1 1 1 1 2 2 2 2 3 3 ...</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ PE    : num [1:64] 0 30 70 100 0 30 70 100 0 30 ...</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ L2toL1: num [1:64] 0.35 0.65 0.6 0.45 0.15 0.35 0.2 0.15 0.3 0.45 ...</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>p2PEslong <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, PE) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">L2toL1 =</span> <span class="fu">mean</span>(L2toL1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;PE&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;L2toL1&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x PE&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x PE</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="right">0</th>
+<th align="right">30</th>
+<th align="right">70</th>
+<th align="right">100</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="right">0.2438</td>
+<td align="right">0.4125</td>
+<td align="right">0.3750</td>
+<td align="right">0.2313</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="right">0.2313</td>
+<td align="right">0.2313</td>
+<td align="right">0.1688</td>
+<td align="right">0.2875</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>p2PE.aov <span class="ot">&lt;-</span> p2PEslong <span class="sc">%&gt;%</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;L2toL1&#39;</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;PE&#39;</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>p2PE.aov</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: L2toL1
+##     Effect          df  MSE       F  pes p.value
+## 1    Group       1, 14 0.03  4.43 + .240    .054
+## 2       PE 1.77, 24.77 0.01    2.32 .142    .124
+## 3 Group:PE 1.77, 24.77 0.01 7.44 ** .347    .004
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1
+## 
+## Sphericity correction method: GG</code></pre>
+<p>집단과 예측오류 수준의 상호작용이 유의미하였다.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># custom contrast</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>p2PE.emm <span class="ot">&lt;-</span> p2PE.aov <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(<span class="sc">~</span> Group<span class="sc">*</span>PE)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> emmeans<span class="sc">:::</span><span class="fu">trt.vs.ctrl.emmc</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>Exp0to30 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>Exp0to70 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>Exp0to100 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>Exp100to30 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>Exp100to70 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>)</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>Con0to30 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>Con0to70 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>Con0to100 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>Con100to30 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>Con100to70 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(Exp0to30, Exp0to70, Exp0to100, Exp100to30, Exp100to70,</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>                  Con0to30, Con0to70, Con0to100, Con100to30, Con100to70)</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">contrast</span>(p2PE.emm, con, <span class="at">adjust =</span> <span class="st">&quot;Bonferroni&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast   estimate     SE df t.ratio p.value
+##  Exp0to30     0.1688 0.0526 14   3.209  0.0630
+##  Exp0to70     0.1313 0.0332 14   3.954  0.0144
+##  Exp0to100   -0.0125 0.0355 14  -0.352  1.0000
+##  Exp100to30   0.1812 0.0465 14   3.900  0.0160
+##  Exp100to70   0.1437 0.0374 14   3.841  0.0180
+##  Con0to30     0.0000 0.0526 14   0.000  1.0000
+##  Con0to70    -0.0625 0.0332 14  -1.883  0.8070
+##  Con0to100    0.0563 0.0355 14   1.586  1.0000
+##  Con100to30  -0.0563 0.0465 14  -1.210  1.0000
+##  Con100to70  -0.1187 0.0374 14  -3.173  0.0678
+## 
+## P value adjustment: bonferroni method for 10 tests</code></pre>
+<p>실험집단에서만 PE100의 침범반응이 PE30과 PE70보다 적었다.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># https://cran.r-project.org/web/packages/emmeans/vignettes/interactions.html</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>emm.t <span class="ot">&lt;-</span> p2PE.aov <span class="sc">%&gt;%</span> <span class="fu">emmeans</span>(pairwise <span class="sc">~</span> PE <span class="sc">|</span> Group)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>emm.t[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> <span class="fu">contrast</span>(<span class="st">&quot;poly&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summary</span>(<span class="at">by =</span> <span class="cn">NULL</span>, <span class="at">adjust =</span> <span class="st">&quot;Bonferroni&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast  Group        estimate     SE df t.ratio p.value
+##  linear    Experimental   -0.075 0.1146 14  -0.654  1.0000
+##  quadratic Experimental   -0.312 0.0405 14  -7.722  &lt;.0001
+##  cubic     Experimental    0.100 0.2115 14   0.473  1.0000
+##  linear    Control         0.106 0.1146 14   0.927  1.0000
+##  quadratic Control         0.119 0.0405 14   2.934  0.0653
+##  cubic     Control         0.244 0.2115 14   1.152  1.0000
+## 
+## P value adjustment: bonferroni method for 6 tests</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>emm.t[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span>  <span class="fu">contrast</span>(<span class="at">interaction =</span> <span class="fu">c</span>(<span class="st">&quot;poly&quot;</span>, <span class="st">&quot;consec&quot;</span>), </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">by =</span> <span class="cn">NULL</span>, <span class="at">adjust =</span> <span class="st">&quot;Bonferroni&quot;</span>)</span></code></pre></div>
+<pre><code>##  PE_poly   Group_consec           estimate     SE df t.ratio p.value
+##  linear    Control - Experimental    0.181 0.1621 14   1.118  0.8473
+##  quadratic Control - Experimental    0.431 0.0572 14   7.535  &lt;.0001
+##  cubic     Control - Experimental    0.144 0.2992 14   0.480  1.0000
+## 
+## P value adjustment: bonferroni method for 3 tests</code></pre>
+<p>이차함수 추세(quadratic trend)에서 PE와 집단의 상호작용이 유의미하였다(가정 중요한 결과).</p>
+<p><br><br><br></p>
+</div>
+<div id="source-confidence" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Source confidence</h2>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>p2old <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Corr <span class="sc">==</span> <span class="dv">2</span> <span class="sc">|</span> Corr <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Confid =</span> <span class="fu">mean</span>(Conf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Confid =</span> <span class="fu">mean</span>(Confid)) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;List&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;Confid&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x List&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x List</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="right">list1</th>
+<th align="right">list2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="right">3.0616</td>
+<td align="right">3.2275</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="right">2.5919</td>
+<td align="right">3.0929</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>p2old <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Corr <span class="sc">==</span> <span class="dv">2</span> <span class="sc">|</span> Corr <span class="sc">==</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Confid =</span> <span class="fu">mean</span>(Conf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Confid&#39;</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;List&#39;</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Confid
+##       Effect    df  MSE        F  pes p.value
+## 1      Group 1, 14 0.52     1.41 .092    .255
+## 2       List 1, 14 0.08 11.63 ** .454    .004
+## 3 Group:List 1, 14 0.08     2.93 .173    .109
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>List 1보다 List 2에 대한 확신도가 더 높았다.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List 2 misattr X PE: Confidence</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>p2old <span class="sc">%&gt;%</span> <span class="fu">filter</span>(List <span class="sc">==</span> <span class="st">&#39;list2&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, PE) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Conf =</span> <span class="fu">mean</span>(Conf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, PE) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Conf =</span> <span class="fu">mean</span>(Conf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;PE&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;Conf&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x PE&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x PE</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="right">0</th>
+<th align="right">30</th>
+<th align="right">70</th>
+<th align="right">100</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="right">3.2938</td>
+<td align="right">3.2625</td>
+<td align="right">3.3688</td>
+<td align="right">3.4250</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="right">3.1312</td>
+<td align="right">3.1188</td>
+<td align="right">3.2500</td>
+<td align="right">3.1125</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>p2old <span class="sc">%&gt;%</span> <span class="fu">filter</span>(List <span class="sc">==</span> <span class="st">&#39;list2&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, PE) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Conf =</span> <span class="fu">mean</span>(Conf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Conf&#39;</span>,</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;PE&#39;</span>,</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Conf
+##     Effect          df  MSE    F  pes p.value
+## 1    Group       1, 14 0.81 0.67 .046    .427
+## 2       PE 2.72, 38.14 0.04 1.41 .091    .257
+## 3 Group:PE 2.72, 38.14 0.04 0.92 .062    .432
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1
+## 
+## Sphericity correction method: GG</code></pre>
+<p><br><br><br></p>
+</div>
+<div id="associative-memory" class="section level2" number="3.8">
+<h2><span class="header-section-number">3.8</span> Associative Memory</h2>
+<div id="accuracy" class="section level3" number="3.8.1">
+<h3><span class="header-section-number">3.8.1</span> Accuracy</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(List <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>, Resp <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(aCorr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(Accuracy)) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;List&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;Accuracy&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x List&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x List</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="right">list1</th>
+<th align="right">list2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="right">90.3437</td>
+<td align="right">94.2232</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="right">83.5967</td>
+<td align="right">90.5806</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(List <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>, Resp <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Accuracy =</span> <span class="fu">mean</span>(aCorr)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Accuracy&#39;</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;List&#39;</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Accuracy
+##       Effect    df   MSE        F  pes p.value
+## 1      Group 1, 14 90.63     2.38 .145    .145
+## 2       List 1, 14 17.97 13.13 ** .484    .003
+## 3 Group:List 1, 14 17.97     1.07 .071    .318
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="confidence" class="section level3" number="3.8.2">
+<h3><span class="header-section-number">3.8.2</span> Confidence</h3>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(List <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>, Resp <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Confident =</span> <span class="fu">mean</span>(aConf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Confident =</span> <span class="fu">mean</span>(Confident)) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="st">&#39;List&#39;</span>, <span class="at">values_from =</span> <span class="st">&#39;Confident&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">digits =</span> <span class="dv">4</span>, <span class="at">caption =</span> <span class="st">&quot;Descriptive statistics: Group x List&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Descriptive statistics: Group x List</caption>
+<thead>
+<tr class="header">
+<th align="left">Group</th>
+<th align="right">list1</th>
+<th align="right">list2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Experimental</td>
+<td align="right">3.7258</td>
+<td align="right">3.7645</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="right">3.4730</td>
+<td align="right">3.5647</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(List <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>, Resp <span class="sc">!=</span> <span class="st">&quot;list3&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Confident =</span> <span class="fu">mean</span>(aConf)) <span class="sc">%&gt;%</span> </span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov_ez</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>, <span class="at">dv =</span> <span class="st">&#39;Confident&#39;</span>,</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">between =</span> <span class="st">&#39;Group&#39;</span>, <span class="at">within =</span> <span class="st">&#39;List&#39;</span>,</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">anova_table =</span> <span class="fu">list</span>(<span class="at">es =</span> <span class="st">&#39;pes&#39;</span>))</span></code></pre></div>
+<pre><code>## Anova Table (Type 3 tests)
+## 
+## Response: Confident
+##       Effect    df  MSE      F  pes p.value
+## 1      Group 1, 14 0.18   2.29 .141    .152
+## 2       List 1, 14 0.01 5.07 * .266    .041
+## 3 Group:List 1, 14 0.01   0.84 .056    .376
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;+&#39; 0.1 &#39; &#39; 1</code></pre>
+<p><br><br><br></p>
+</div>
+</div>
+</div>
+<div id="plots" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Plots</h1>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>p2cnt <span class="ot">&lt;-</span> p2old <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, SN, List, Resp) <span class="sc">%&gt;%</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">prop =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Resp <span class="sc">!=</span> <span class="st">&#39;list3&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co"># print(p2cnt, n=20)</span></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>tmp0 <span class="ot">&lt;-</span> p2cnt <span class="sc">%&gt;%</span> </span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, List, Resp) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MN =</span> <span class="fu">mean</span>(prop),</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">SD =</span> <span class="fu">sd</span>(prop)) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> p2cnt <span class="sc">%&gt;%</span> </span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span> <span class="st">&#39;Experimental&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>  papaja<span class="sc">::</span><span class="fu">wsci</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>,</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">factor =</span> <span class="fu">c</span>(<span class="st">&#39;List&#39;</span>, <span class="st">&#39;Resp&#39;</span>),</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">dv =</span> <span class="st">&#39;prop&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="st">&quot;Experimental&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;wsci&quot;</span> <span class="ot">=</span> <span class="st">&quot;prop&quot;</span>)</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> p2cnt <span class="sc">%&gt;%</span> </span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span> <span class="st">&#39;Control&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a>  papaja<span class="sc">::</span><span class="fu">wsci</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>,</span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">factor =</span> <span class="fu">c</span>(<span class="st">&#39;List&#39;</span>, <span class="st">&#39;Resp&#39;</span>),</span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">dv =</span> <span class="st">&#39;prop&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="st">&quot;Control&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;wsci&quot;</span> <span class="ot">=</span> <span class="st">&quot;prop&quot;</span>)</span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a>tmp3 <span class="ot">&lt;-</span> <span class="fu">merge</span>(tmp1, tmp2, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a>p2cnt.g <span class="ot">&lt;-</span> <span class="fu">merge</span>(tmp0, tmp3, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;List&quot;</span>, <span class="st">&quot;Resp&quot;</span>), <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a>F2A <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>p2cnt.g, <span class="fu">aes</span>(<span class="at">x=</span>List, <span class="at">y=</span>MN, <span class="at">fill=</span>Resp)) <span class="sc">+</span></span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&#39;identity&#39;</span>, <span class="at">width=</span><span class="fl">0.7</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>, </span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a>           <span class="at">position=</span><span class="fu">position_dodge</span>(.<span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb44-42"><a href="#cb44-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">x=</span>List, <span class="at">ymin=</span>MN<span class="sc">-</span>wsci, <span class="at">ymax=</span>MN<span class="sc">+</span>wsci, <span class="at">group=</span>Resp),</span>
+<span id="cb44-43"><a href="#cb44-43" aria-hidden="true" tabindex="-1"></a>                <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.8</span>), <span class="at">width=</span><span class="fl">0.3</span>,</span>
+<span id="cb44-44"><a href="#cb44-44" aria-hidden="true" tabindex="-1"></a>                <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb44-45"><a href="#cb44-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(.<span class="sc">~</span>Group) <span class="sc">+</span></span>
+<span id="cb44-46"><a href="#cb44-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;List 1&quot;</span>,<span class="st">&quot;List 2&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-47"><a href="#cb44-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">2</span>, .<span class="dv">4</span>, .<span class="dv">6</span>, .<span class="dv">8</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb44-48"><a href="#cb44-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;#feb24c&quot;</span>, <span class="st">&quot;#91bfdb&quot;</span>),</span>
+<span id="cb44-49"><a href="#cb44-49" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Day 1&quot;</span>, <span class="st">&quot;Day 2&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb44-50"><a href="#cb44-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Object List&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Proportion&quot;</span>, <span class="at">fill=</span><span class="st">&#39;Response&#39;</span>) <span class="sc">+</span></span>
+<span id="cb44-51"><a href="#cb44-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">clip =</span> <span class="st">&quot;on&quot;</span>) <span class="sc">+</span></span>
+<span id="cb44-52"><a href="#cb44-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb44-53"><a href="#cb44-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb44-54"><a href="#cb44-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()) </span>
+<span id="cb44-55"><a href="#cb44-55" aria-hidden="true" tabindex="-1"></a>F2A</span></code></pre></div>
+<p><img src="MemUpdatingPE_Exp1_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>tmp0 <span class="ot">&lt;-</span> p2PEslong <span class="sc">%&gt;%</span> </span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Group, PE) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MN =</span> <span class="fu">mean</span>(L2toL1)) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>tmp1 <span class="ot">&lt;-</span> p2PEslong <span class="sc">%&gt;%</span> </span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span> <span class="st">&#39;Experimental&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>  papaja<span class="sc">::</span><span class="fu">wsci</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>,</span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>               <span class="at">factor =</span> <span class="st">&#39;PE&#39;</span>,</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">dv =</span> <span class="st">&#39;L2toL1&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="st">&quot;Experimental&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;wsci&quot;</span> <span class="ot">=</span> <span class="st">&quot;L2toL1&quot;</span>)</span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>tmp2 <span class="ot">&lt;-</span> p2PEslong <span class="sc">%&gt;%</span> </span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span> <span class="st">&#39;Control&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>  papaja<span class="sc">::</span><span class="fu">wsci</span>(<span class="at">id =</span> <span class="st">&#39;SN&#39;</span>,</span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>               <span class="at">factor =</span> <span class="st">&#39;PE&#39;</span>,</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>               <span class="at">dv =</span> <span class="st">&#39;L2toL1&#39;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Group =</span> <span class="st">&quot;Control&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">&quot;wsci&quot;</span> <span class="ot">=</span> <span class="st">&quot;L2toL1&quot;</span>)</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>tmp3 <span class="ot">&lt;-</span> <span class="fu">merge</span>(tmp1, tmp2, <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>p2PEg <span class="ot">&lt;-</span> <span class="fu">merge</span>(tmp0, tmp3, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;Group&quot;</span>, <span class="st">&quot;PE&quot;</span>), <span class="at">all =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a>F2B <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>p2PEg, <span class="fu">aes</span>(<span class="at">x=</span>PE, <span class="at">y=</span>MN, <span class="at">group=</span>Group,</span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ymin=</span>MN<span class="sc">-</span>wsci, <span class="at">ymax=</span>MN<span class="sc">+</span>wsci)) <span class="sc">+</span></span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">10</span>)) <span class="sc">+</span> </span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="dv">10</span>), <span class="at">width=</span><span class="dv">5</span>,</span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a>                <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape=</span>Group, <span class="at">fill=</span>Group), </span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="dv">4</span>, <span class="at">color=</span><span class="st">&#39;black&#39;</span>, <span class="at">stroke=</span><span class="dv">1</span>,</span>
+<span id="cb45-36"><a href="#cb45-36" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="at">width=</span><span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb45-37"><a href="#cb45-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="dv">70</span>, <span class="dv">100</span>)) <span class="sc">+</span></span>
+<span id="cb45-38"><a href="#cb45-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">1</span>, .<span class="dv">2</span>, .<span class="dv">3</span>, .<span class="dv">4</span>, .<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb45-39"><a href="#cb45-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_shape_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="dv">21</span>, <span class="dv">23</span>)) <span class="sc">+</span></span>
+<span id="cb45-40"><a href="#cb45-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;white&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb45-41"><a href="#cb45-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;Prediction Error (%)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Proportion Intrusion&quot;</span>, <span class="at">fill=</span><span class="st">&#39;Group&#39;</span>) <span class="sc">+</span></span>
+<span id="cb45-42"><a href="#cb45-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>), <span class="at">clip =</span> <span class="st">&quot;on&quot;</span>) <span class="sc">+</span></span>
+<span id="cb45-43"><a href="#cb45-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb45-44"><a href="#cb45-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb45-45"><a href="#cb45-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb45-46"><a href="#cb45-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">aspect.ratio =</span> <span class="dv">1</span>) </span>
+<span id="cb45-47"><a href="#cb45-47" aria-hidden="true" tabindex="-1"></a>F2B</span></code></pre></div>
+<p><img src="MemUpdatingPE_Exp1_files/figure-html/unnamed-chunk-20-2.png" width="672" /></p>
+<p><br><br></p>
+<hr />
+<p><br><br></p>
+</div>
+<div id="session-info" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Session Info</h1>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="do">## R version 4.1.2 (2021-11-01)</span></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Platform: x86_64-apple-darwin17.0 (64-bit)</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Running under: macOS Monterey 12.2.1</span></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Matrix products: default</span></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="do">## LAPACK: /Library/Frameworks/R.framework/Versions/4.1/Resources/lib/libRlapack.dylib</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="do">## locale:</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="do">## attached base packages:</span></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] stats     graphics  grDevices utils     datasets  methods   base     </span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="do">## other attached packages:</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] klippy_0.0.0.9500 patchwork_1.1.1   cowplot_1.1.1     papaja_0.1.0.9997</span></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  [5] psych_2.1.9       emmeans_1.7.2     afex_1.0-1        lme4_1.1-28      </span></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  [9] Matrix_1.4-0      knitr_1.37        forcats_0.5.1     stringr_1.4.0    </span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a><span class="do">## [13] dplyr_1.0.8       purrr_0.3.4       readr_2.1.2       tidyr_1.2.0      </span></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a><span class="do">## [17] tibble_3.1.6      ggplot2_3.3.5     tidyverse_1.3.1   magick_2.7.3     </span></span>
+<span id="cb46-21"><a href="#cb46-21" aria-hidden="true" tabindex="-1"></a><span class="do">## [21] icons_0.2.0      </span></span>
+<span id="cb46-22"><a href="#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb46-23"><a href="#cb46-23" aria-hidden="true" tabindex="-1"></a><span class="do">## loaded via a namespace (and not attached):</span></span>
+<span id="cb46-24"><a href="#cb46-24" aria-hidden="true" tabindex="-1"></a><span class="do">##   [1] TH.data_1.1-0       minqa_1.2.4         colorspace_2.0-3   </span></span>
+<span id="cb46-25"><a href="#cb46-25" aria-hidden="true" tabindex="-1"></a><span class="do">##   [4] ellipsis_0.3.2      rsconnect_0.8.25    rprojroot_2.0.2    </span></span>
+<span id="cb46-26"><a href="#cb46-26" aria-hidden="true" tabindex="-1"></a><span class="do">##   [7] estimability_1.3    fs_1.5.2            rstudioapi_0.13    </span></span>
+<span id="cb46-27"><a href="#cb46-27" aria-hidden="true" tabindex="-1"></a><span class="do">##  [10] farver_2.1.0        remotes_2.4.2       fansi_1.0.2        </span></span>
+<span id="cb46-28"><a href="#cb46-28" aria-hidden="true" tabindex="-1"></a><span class="do">##  [13] mvtnorm_1.1-3       lubridate_1.8.0     xml2_1.3.3         </span></span>
+<span id="cb46-29"><a href="#cb46-29" aria-hidden="true" tabindex="-1"></a><span class="do">##  [16] codetools_0.2-18    splines_4.1.2       mnormt_2.0.2       </span></span>
+<span id="cb46-30"><a href="#cb46-30" aria-hidden="true" tabindex="-1"></a><span class="do">##  [19] cachem_1.0.6        pkgload_1.2.4       jsonlite_1.7.3     </span></span>
+<span id="cb46-31"><a href="#cb46-31" aria-hidden="true" tabindex="-1"></a><span class="do">##  [22] nloptr_2.0.0        broom_0.7.12        dbplyr_2.1.1       </span></span>
+<span id="cb46-32"><a href="#cb46-32" aria-hidden="true" tabindex="-1"></a><span class="do">##  [25] compiler_4.1.2      httr_1.4.2          backports_1.4.1    </span></span>
+<span id="cb46-33"><a href="#cb46-33" aria-hidden="true" tabindex="-1"></a><span class="do">##  [28] assertthat_0.2.1    fastmap_1.1.0       cli_3.2.0          </span></span>
+<span id="cb46-34"><a href="#cb46-34" aria-hidden="true" tabindex="-1"></a><span class="do">##  [31] htmltools_0.5.2     prettyunits_1.1.1   tools_4.1.2        </span></span>
+<span id="cb46-35"><a href="#cb46-35" aria-hidden="true" tabindex="-1"></a><span class="do">##  [34] lmerTest_3.1-3      coda_0.19-4         gtable_0.3.0       </span></span>
+<span id="cb46-36"><a href="#cb46-36" aria-hidden="true" tabindex="-1"></a><span class="do">##  [37] glue_1.6.1          reshape2_1.4.4      rappdirs_0.3.3     </span></span>
+<span id="cb46-37"><a href="#cb46-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  [40] Rcpp_1.0.8          carData_3.0-5       cellranger_1.1.0   </span></span>
+<span id="cb46-38"><a href="#cb46-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  [43] jquerylib_0.1.4     vctrs_0.3.8         nlme_3.1-155       </span></span>
+<span id="cb46-39"><a href="#cb46-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  [46] xfun_0.29           ps_1.6.0            brio_1.1.3         </span></span>
+<span id="cb46-40"><a href="#cb46-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  [49] testthat_3.1.2      rvest_1.0.2         lifecycle_1.0.1    </span></span>
+<span id="cb46-41"><a href="#cb46-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  [52] pacman_0.5.1        devtools_2.4.3      MASS_7.3-55        </span></span>
+<span id="cb46-42"><a href="#cb46-42" aria-hidden="true" tabindex="-1"></a><span class="do">##  [55] zoo_1.8-9           scales_1.1.1        hms_1.1.1          </span></span>
+<span id="cb46-43"><a href="#cb46-43" aria-hidden="true" tabindex="-1"></a><span class="do">##  [58] parallel_4.1.2      sandwich_3.0-1      yaml_2.3.5         </span></span>
+<span id="cb46-44"><a href="#cb46-44" aria-hidden="true" tabindex="-1"></a><span class="do">##  [61] curl_4.3.2          memoise_2.0.1       sass_0.4.0         </span></span>
+<span id="cb46-45"><a href="#cb46-45" aria-hidden="true" tabindex="-1"></a><span class="do">##  [64] stringi_1.7.6       highr_0.9           desc_1.4.0         </span></span>
+<span id="cb46-46"><a href="#cb46-46" aria-hidden="true" tabindex="-1"></a><span class="do">##  [67] boot_1.3-28         pkgbuild_1.3.1      rlang_1.0.1        </span></span>
+<span id="cb46-47"><a href="#cb46-47" aria-hidden="true" tabindex="-1"></a><span class="do">##  [70] pkgconfig_2.0.3     evaluate_0.15       lattice_0.20-45    </span></span>
+<span id="cb46-48"><a href="#cb46-48" aria-hidden="true" tabindex="-1"></a><span class="do">##  [73] labeling_0.4.2      processx_3.5.2      tidyselect_1.1.2   </span></span>
+<span id="cb46-49"><a href="#cb46-49" aria-hidden="true" tabindex="-1"></a><span class="do">##  [76] plyr_1.8.6          magrittr_2.0.2      R6_2.5.1           </span></span>
+<span id="cb46-50"><a href="#cb46-50" aria-hidden="true" tabindex="-1"></a><span class="do">##  [79] generics_0.1.2      multcomp_1.4-18     DBI_1.1.2          </span></span>
+<span id="cb46-51"><a href="#cb46-51" aria-hidden="true" tabindex="-1"></a><span class="do">##  [82] pillar_1.7.0        haven_2.4.3         withr_2.4.3        </span></span>
+<span id="cb46-52"><a href="#cb46-52" aria-hidden="true" tabindex="-1"></a><span class="do">##  [85] survival_3.2-13     abind_1.4-5         modelr_0.1.8       </span></span>
+<span id="cb46-53"><a href="#cb46-53" aria-hidden="true" tabindex="-1"></a><span class="do">##  [88] crayon_1.5.0        car_3.0-12          utf8_1.2.2         </span></span>
+<span id="cb46-54"><a href="#cb46-54" aria-hidden="true" tabindex="-1"></a><span class="do">##  [91] tmvnsim_1.0-2       tzdb_0.2.0          rmarkdown_2.11     </span></span>
+<span id="cb46-55"><a href="#cb46-55" aria-hidden="true" tabindex="-1"></a><span class="do">##  [94] usethis_2.1.5       grid_4.1.2          readxl_1.3.1       </span></span>
+<span id="cb46-56"><a href="#cb46-56" aria-hidden="true" tabindex="-1"></a><span class="do">##  [97] callr_3.7.0         reprex_2.0.1        digest_0.6.29      </span></span>
+<span id="cb46-57"><a href="#cb46-57" aria-hidden="true" tabindex="-1"></a><span class="do">## [100] xtable_1.8-4        numDeriv_2016.8-1.1 munsell_0.5.0      </span></span>
+<span id="cb46-58"><a href="#cb46-58" aria-hidden="true" tabindex="-1"></a><span class="do">## [103] bslib_0.3.1         sessioninfo_1.2.2</span></span></code></pre></div>
+</div>
+
+<p>Copyright &copy; 2022 CogNIPS. All rights reserved.</p>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = false;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

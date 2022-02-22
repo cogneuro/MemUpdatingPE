@@ -1,0 +1,15 @@
+name: "MemUpdatingPE"
+output_dir: "."
+navbar:
+  title: "MemUpdatingPE"
+  left:
+    - text: "Exp 1"
+      href: MemUpdatingPE_Exp1.html
+    - text: "Exp 2"
+      href: MemUpdatingPE_Exp2.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: pygments
+    include:
+      after_body: footer.html
