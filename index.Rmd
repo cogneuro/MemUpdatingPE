@@ -14,12 +14,14 @@ mainfont: Noto Sans CJK KR
 pacman::p_load_gh("mitchelloharawild/icons")
 ```
 
+<br><br>
+
 ## Authors
 
 * Taehoon Kim (Department of Psychology, Yonsei University, taehoon.kim@yonsei.ac.kr) 
 * Do-Joon Yi (Department of Psychology, Yonsei University, dojoon.yi@yonsei.ac.kr)
 
-<br><br>
+<br>
 
 ## Abstract
 
